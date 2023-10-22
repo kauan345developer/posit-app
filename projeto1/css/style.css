@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Tilt Neon', sans-serif;
+}
+
+html,body{
+  height: 100%;
+}
+
+.container{
+  height: 100%;
+  display: flex;
+  gap: 10rem;
+  background-color: #fdfdeb;
+}
+
+form{
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .4rem;
+  text-align: center;
+}
+
+form input{
+  width: 20rem;
+  height: 3rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #181818;
+  color: whitesmoke;
+  font-size: 1rem;
+  padding: .4rem;
+}
+
+form textarea{
+  width: 20rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #181818;
+  color: whitesmoke;
+  font-size: 1rem;
+  padding: .4rem;
+}
+
+form button{
+  width: 10rem;
+  border: none;
+  height: 4rem;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color:#84b6f4;
+  color: whitesmoke;
+  font-size: 1.5rem;
+}
+
+.container .notesCollection {
+    margin-top: 1rem;
+    display: grid;
+    align-content: center;
+    grid-template-columns: repeat(3, 17rem);
+    grid-template-rows: repeat(3,12rem);
+    gap: 1rem;
+    width: 100%;
+}
+
+.container .notesCollection div{
+  text-align: center;
+  padding: .5rem;
+  border-radius: 7px;
+  position: relative;
+}
+
+.container .notesCollection div .exclude{
+  position: absolute;
+  width: 2.5rem;
+  top:-.7rem;
+  right: -.7rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.container .notesCollection div:hover .exclude {
+  display: inline;
+  opacity: 1;
+}
+
+.note1{
+  background-color:#8d94db;
+}
+
+.note2{
+  background-color:#8d8d8d;
+}
+
+.note3{
+  background-color: #e8eb00;
+}
+
+.note4{
+  background-color: #4b231b;
+}
+
+.note5{
+  background-color:#f55435 ;
+}
+
+.note6{
+  background-color:#f3c07e ;
+}
+
+.note7{
+  background-color:#b07a99 ;
+}
+
+.note8{
+  background-color:#bf8179 ;
+}
+
+.note9{
+  background-color:#84b6f4 ;
+}
