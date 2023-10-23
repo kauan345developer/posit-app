@@ -22,10 +22,11 @@ form.addEventListener("submit",(ev) =>{
   const note = {
     name:noteName.value,
     content:content.value,
-    id1:idplus
+    id1:idplus,
+    bgclass:""
   }
-  console.log(`idplus:${idplus}`)
-  addNotes(note)
+
+  addNotes(note,true)
   tableofnotes.push(note)
 
   idplus++
@@ -38,16 +39,56 @@ form.addEventListener("submit",(ev) =>{
 
 })
 
+document.addEventListener("click",() => {
+  const ul = notesCollection.querySelectorAll("div ul")
+  ul.forEach((e) => {
+    e.style.display = "none"
+  })
+})
 
-function addNotes(note){
+function contextMenu(visiblenote){
+  const listOfLi = [
+    "Editar texto",
+    "Excluir",
+    "Mudar cor"
+  ]
+
+  const newUl = document.createElement('ul')
+  newUl.style.display = "none"
+
+  listOfLi.forEach((litext) =>{
+    const li = document.createElement("li")
+    li.textContent = litext
+    newUl.appendChild(li)
+  })
+
+  visiblenote.appendChild(newUl)
+
+  
+}
+
+
+function putColor(note,randomColor,visiblenote){
+  if(randomColor){
+    visiblenote.classList.add(`note${Math.floor(Math.random() * (9-1) + 1)}`)
+    console.log(/note\d+/.exec(visiblenote.className))
+    return note.bgclass = /note\d+/.exec(visiblenote.className)
+  }
+  
+  visiblenote.classList.add(note.bgclass[0])
+}
+
+function addNotes(note,randomColor){
   const {name,content,id1} = note
-  console.log(`id1: ${id1}`)
+
   const visiblenote = document.createElement("div")
   visiblenote.id = id1
-  visiblenote.classList.add(`note${Math.floor(Math.random() * (9-1) + 1)}`)
+  visiblenote.classList.add("oi")
+  putColor(note,randomColor,visiblenote)
 
   const visibleH2 = document.createElement("h2")
   const visibleP = document.createElement("p")
+  
 
   const excludeBtn = document.createElement("img")
   excludeBtn.src ="./image/exclude.svg"
@@ -55,7 +96,6 @@ function addNotes(note){
   
   excludeBtn.addEventListener("click",(ev) => {
     const fatherNote =  ev.target.parentElement;
-    console.log(`fatherNote-id: ${fatherNote.id}`)
     tableofnotes = tableofnotes.filter((param) => param.id1 !== parseInt(fatherNote.id) )
     localStorage.setItem("notes",JSON.stringify(tableofnotes))
 
@@ -67,14 +107,34 @@ function addNotes(note){
   visibleP.textContent = content
 
   visiblenote.append(visibleH2,visibleP,excludeBtn)
-
+  contextMenu(visiblenote)
   notesCollection.appendChild(visiblenote)
+  
+  const divs = notesCollection.querySelectorAll("div")
+  
+  divs.forEach((div) => {
+    const ul = div.querySelector("ul")
+    div.addEventListener("contextmenu",(ev) => {
+      ev.preventDefault()
+      console.log(ul.parentElement)
+
+      const divRect = div.getBoundingClientRect();
+      const x = ev.clientX - divRect.left - 10; // Posição X do clique em relação à div
+      const y = ev.clientY - divRect.top - 10; // Posição Y do clique em relação à div
+
+      ul.style.position = "relative"
+      ul.style.left = x + "px"
+      ul.style.top = y + "px"
+      ul.style.display = "block"
+    })
+  })
 }
 
 
 function render() {
   try {
     const storage = JSON.parse(localStorage.getItem("notes"))
+
     if (storage && storage.length !== 0) {
       tableofnotes = storage;
 
@@ -82,13 +142,19 @@ function render() {
     } else {
       idplus = 1;
     }
+      
     tableofnotes.forEach((element) => {
-      addNotes(element);
+      addNotes(element,false);
     });
+
+
   } catch (error) {
-    console.log("REERERERERE")
+
     console.error(error) 
   }
 }
 
+
+
 render();
+

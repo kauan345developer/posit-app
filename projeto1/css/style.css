@@ -127,3 +127,34 @@ form button{
 .note9{
   background-color:#84b6f4 ;
 }
+
+.notesCollection div ul{
+  background-color:white;
+  width: 6rem;
+  list-style-type: none;
+  border-radius: 5px;
+}
+
+
+
+.notesCollection div ul li{
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.notesCollection div ul li:first-child{
+  border-radius: 5px 5px 0 0;
+}
+
+.notesCollection div ul li:last-child{
+  border-radius: 0 0 5px 5px;
+}
+
+.notesCollection div ul li:hover{
+  background-color: rgba(163, 162, 162, 0.507);
+}
+
+.notesCollection div ul li:not(:last-child) {
+  border-bottom: 1px solid #ccc; 
+}
+
