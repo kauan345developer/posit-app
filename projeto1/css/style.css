@@ -75,6 +75,8 @@ form button{
   padding: .5rem;
   border-radius: 7px;
   position: relative;
+  word-wrap: break-word;
+  
 }
 
 .container .notesCollection div .exclude{
@@ -128,14 +130,14 @@ form button{
   background-color:#84b6f4 ;
 }
 
+
+
 .notesCollection div ul{
   background-color:white;
   width: 6rem;
   list-style-type: none;
   border-radius: 5px;
 }
-
-
 
 .notesCollection div ul li{
   padding: 8px 0;
@@ -158,3 +160,39 @@ form button{
   border-bottom: 1px solid #ccc; 
 }
 
+.notesCollection .cores{
+  background-color:#cacaa6 ;
+  height: 11rem;
+  padding: 1rem;
+  position: absolute;
+  bottom: -190px;
+}
+
+.notesCollection .cores .gridCores{
+  display: grid;
+  grid-template-columns: repeat(5,2rem);
+  gap: .4rem;
+  align-content: center;
+  justify-content: center;
+  
+}
+
+.notesCollection .cores .gridCores div{
+  border-radius: 50%;
+  height: 2rem;
+  border: 3px solid whitesmoke;
+}
+
+.notesCollection .cores  button{
+  border: none;
+  padding: .5rem;
+  color: white;
+  border-radius: 5px;
+  background-color:#84b6f4;
+  cursor: pointer;
+}
+
+.select{
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,36 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html,body{
+  height: 100%;
+}
+
+.container{
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+}
+
+.container .mega {
+  border: 1px solid red;
+  width: 25rem;
+}
+
+.container .mega .title{
+  display: flex;
+  justify-content: center;
+  background-color: green;
+}
+
+.container .numeros{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
