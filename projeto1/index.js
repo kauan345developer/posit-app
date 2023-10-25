@@ -11,7 +11,6 @@ let tableofnotes = []
 let idplus 
 
 form.addEventListener("submit",(ev) =>{
-  // console.log("OOOOOOOOOOOOOOOO")
   ev.preventDefault()
   let count = tableofnotes.length
 
@@ -47,13 +46,7 @@ document.addEventListener("click",() => {
   })
 })
 
-// document.addEventListener("click",() => {
-//   const cores = notesCollection.querySelectorAll("div .cores")
-//   console.log(cores)
-//   cores.forEach((e) =>{
-//     e.style.display = "none"
-//   })
-// })
+
 
 function contextMenu(visiblenote){
   const listOfLi = [
@@ -80,7 +73,6 @@ function contextMenu(visiblenote){
 function putColor(note,randomColor,visiblenote){
   if(randomColor){
     visiblenote.classList.add(`note${Math.floor(Math.random() * (9-1) + 1)}`)
-    // console.log(/note\d+/.exec(visiblenote.className))
     return note.bgclass = /note\d+/.exec(visiblenote.className)
   }
   
@@ -98,7 +90,6 @@ function btnexcluir(li1){
 
 
 function createMudarCor(li2){
-        // console.log(tableofnotes)
         const fatherdiv = li2.parentElement.parentElement
   
         const cores = document.createElement("div")
@@ -110,13 +101,16 @@ function createMudarCor(li2){
         const p = document.createElement('p')
         p.textContent = "Selecione uma Cor"
   
+        const btnEx = document.createElement("button")
+        btnEx.textContent = "FECHAR"
+
         for (let index = 1; index < 10; index++) {
           const cor = document.createElement("div")
           cor.classList.add(`note${index}`)
           gridCores.appendChild(cor)
         }
         
-        cores.append(p,gridCores)
+        cores.append(p,gridCores,btnEx)
         fatherdiv.appendChild(cores)
         
 
@@ -128,11 +122,18 @@ function createMudarCor(li2){
           mudarCor(cor,fatherdiv)
         })
       })
+
+      const divBtns = document.querySelectorAll(".cores button")
+      const divBtnUltimo = divBtns[divBtns.length -1]
+      divBtnUltimo.addEventListener("click",(ev)=>{
+        const fathercores = ev.target.parentElement
+        const grandfather = ev.target.parentElement.parentElement
+        grandfather.removeChild(fathercores)
+      })
 }
 
 function mudarCor(cor,fatherdiv){
 
-      console.log(tableofnotes)
       const newColor = /note\d+/.exec(cor.className)
       for (let i = 1; i <= 9; i++) {
         fatherdiv.classList.remove(`note${i}`)
@@ -141,12 +142,8 @@ function mudarCor(cor,fatherdiv){
     
   
 
-    // console.log(fatherdiv.id)
-  console.log(tableofnotes)
   tableofnotes = tableofnotes.map((objeto) =>{
-    // console.log(objeto)
     if(objeto.id1 === parseInt(fatherdiv.id)){
-      console.log("enteri")
       return {...objeto, bgclass:newColor }
     }
     return objeto
@@ -155,7 +152,6 @@ function mudarCor(cor,fatherdiv){
 }
 
 function addNotes(note,randomColor){
-  // console.log("A")
   const {name,content,id1} = note
 
   const visiblenote = document.createElement("div")
@@ -187,24 +183,18 @@ function addNotes(note,randomColor){
   contextMenu(visiblenote)
   notesCollection.appendChild(visiblenote)
   
-  // console.log(idplus)
   const divs = notesCollection.querySelectorAll("div")
   const div = divs[divs.length - 1]
-  // console.log(div)
   
     const ul = div.querySelector("ul")
     
       div.addEventListener("contextmenu",(ev) => {
-        // console.log(1)
         ev.preventDefault()
         
         
-        // console.log(ul.parentElement)
         const divRect = div.getBoundingClientRect();
-        const x = ev.clientX - divRect.left - 10; // Posição X do clique em relação à div
-        // console.log(`x:${ev.clientX}`)
-        // console.log(`y:${ev.clientY}`)
-        const y = ev.clientY - divRect.top  - 10; // Posição Y do clique em relação à div
+        const x = ev.clientX - divRect.left - 10; 
+        const y = ev.clientY - divRect.top  - 10; 
         
         ul.style.position = "relative"
         ul.style.left = x + "px"
