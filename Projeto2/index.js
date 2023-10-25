@@ -11,13 +11,15 @@ const btnLotofacil = document.getElementById("btnLotofacil")
 
 
 function gerarNumeros(qtd,max) {
-  let result = ""
-  for (let index = 0; index < qtd; index++) {
+  let result = []
+  while (result.length < qtd) {
     const random = Math.floor(Math.random() * (max-1) + 1)
-    result += `${random}-`
+    if (!result.includes(random)) {
+      result.push(random)
+    }
   }
-  result = result.slice(0,-1)
-  return result
+   
+  return result.join('-')
 }
 
 
@@ -26,7 +28,9 @@ btnMega.addEventListener("click",() =>{
   const result = gerarNumeros(6,60)
   const span = document.querySelector(".mega .numeros span")
   span.textContent =  result
+
   const loterias = JSON.parse(localStorage.getItem("loterias"))
+  
   if(loterias){
     loterias.megasena = result
     localStorage.setItem("loterias", JSON.stringify(loterias))
@@ -39,12 +43,15 @@ btnQuina.addEventListener("click",() =>{
   const result = gerarNumeros(5,80)
   const span = document.querySelector(".quina .numeros span")
   span.textContent = result
+
   const loterias = JSON.parse(localStorage.getItem("loterias"))
+  
   if(loterias){
     loterias.quina = result
     localStorage.setItem("loterias", JSON.stringify(loterias))
     return
   }
+  
   localStorage.setItem("loterias",JSON.stringify(loteriasHere))
 })
 
@@ -52,12 +59,14 @@ btnLotofacil.addEventListener("click",() =>{
   const result = gerarNumeros(15,25)
   const span = document.querySelector(".lotofacil .numeros span")
   span.textContent = result
+  
   const loterias = JSON.parse(localStorage.getItem("loterias"))
   if(loterias){
     loterias.lotofacil = result
     localStorage.setItem("loterias", JSON.stringify(loterias))
     return
   }
+  
   localStorage.setItem("loterias",JSON.stringify(loteriasHere))
 })
 
@@ -73,7 +82,10 @@ function render(){
 
     const span3 = document.querySelector(".lotofacil .numeros span")
     span3.textContent = loterias.lotofacil
+    return
   }
+  
+  localStorage.setItem("loterias",JSON.stringify(loteriasHere))
 }
 
 render()
